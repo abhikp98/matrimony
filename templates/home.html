@@ -2,7 +2,11 @@
 {% if not isProfile %}
 <b>Update your profile to see you in others feeds!<a href="{% url 'update-profile' %}">Click here</a></b>
 {% else %}
+{% if users %}
 {% for user in users %}
-{{user}}
+<a href="{% url 'view-profile' user.user.username %}">{{user.user.username}}</a>
 {% endfor %}
+{% else %}
+Not found
+{% endif %}
 {% endif %}

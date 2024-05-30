@@ -5,6 +5,7 @@ from myapp.models import Followers, UserProfile
 from .forms import *
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
+from django.db.models import Q
 
 from django.contrib import messages
 
@@ -45,10 +46,15 @@ def logoutFunction(request):
 
 def home(request):
     users = UserProfile.objects.all().exclude(user=request.user)
+    search = request.GET.get('search')
+    if search is not None:
+        print(search)
+        users = UserProfile.objects.filter(Q(user__username__icontains=search) | Q(user__first_name__icontains=search) | Q(user__last_name__icontains=search)).exclude(user=request.user)
     isProfile = False
     if UserProfile.objects.filter(user=request.user).exists():
         isProfile = True
     context = {"users": users, "isProfile": isProfile}
+    print(context)
     return render(request, 'home.html', context)
 
 
@@ -70,16 +76,24 @@ def follow_unfollow(request, ):
 
 def update_profile(request):
     form = UserProfileForm()
+    if UserProfile.objects.filter(user=request.user).exists():
+            userprofile = UserProfile.objects.get(user=request.user)
+            form = UserProfileForm(instance=userprofile)
     if request.method == 'POST':
+        if UserProfile.objects.filter(user=request.user).exists():
+            userprofile = UserProfile.objects.get(user=request.user)
+            form = UserProfileForm(instance=userprofile)
+            if form.is_valid():
+                form.save()
+                return redirect('update-profile')
+
         form = UserProfileForm(request.POST)
         if form.is_valid():
             frm = form.save(commit=False)
             frm.user = request.user
             frm.save()
-            return redirect('')
-    if UserProfile.objects.filter(user=request.user).exists():
-        userprofile = UserProfile.objects.get(user=request.user)
-        form = UserProfile(instance=userprofile)
+            return redirect('update-profile')
+
     context = {"form": form}
     return render(request, 'update-profile.html', context)
 

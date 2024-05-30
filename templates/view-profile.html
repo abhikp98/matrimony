@@ -1,0 +1,5 @@
+<h3>View Profile</h3>
+{{profile.user.username}}
+{% if request.user == profile.user %}
+<a href="{% url 'update-profile' %}">Update Profile</a>
+{% endif %}

@@ -25,9 +25,9 @@ class Caste(models.Model):
 
 
 class UserProfile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     phone = models.CharField(max_length=10)
-    avatar = models.ImageField(upload_to='media')
+    avatar = models.ImageField(upload_to='media', default='defaultprofile.jpg')
     bio = models.CharField(max_length=250, default="Hey Peeps, I'm Here!")
     caste = models.ForeignKey(Caste, on_delete=models.CASCADE)
     height = models.CharField(max_length=5)
