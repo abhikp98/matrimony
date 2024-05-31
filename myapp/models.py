@@ -1,4 +1,5 @@
 from ctypes import cast
+from datetime import date, timezone
 from math import fabs
 from typing import Iterable
 from django.db import models
@@ -33,12 +34,18 @@ class UserProfile(models.Model):
     height = models.CharField(max_length=5)
     weight = models.CharField(max_length=5)
     interest = models.CharField(max_length=250)
+    dob = models.DateField(max_length=8, default=date.today)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
     def __str__(self) -> str:
         return self.user.first_name
 
+    def age(self):
+        today = date.today()
+        agee = int(today.year - self.dob.year)
+        return agee
+    
 
 class Followers(models.Model):
     profile = models.ForeignKey(UserProfile, on_delete=models.CASCADE)

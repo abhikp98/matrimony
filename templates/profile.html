@@ -17,6 +17,7 @@
         Height: {{profile.height}} cm<br>
         Weight: {{profile.weight}} kg<br>
         Interests: {{profile.interest}}<br>
+        Age: {{profile.age}}<br>
         {% if request.user == profile.user %}
         <a href="{% url 'update-profile' %}" class="btn btn-style">Update Profile</a>
         {% else %}
