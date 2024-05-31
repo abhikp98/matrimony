@@ -25,5 +25,9 @@ urlpatterns = [
     path('logout/', views.logoutFunction, name="logout"),
     path('register/', views.registerFunction, name="register"),
     path('update-profile/', views.update_profile, name='update-profile'),
-    path('view-profile/<username>/', views.view_profile, name='view-profile'),
+    path('profile/<username>/', views.view_profile, name='view-profile'),
+    path('follow-unfollow/<username>', views.follow_unfollow, name='follow-unfollow'),
+    path('requests/', views.view_requests, name="requests"),
+    path('connections/', views.view_followers_list, name="connections"),
+    path('accept_request/<username>', views.accept_request, name="accept_request"),
 ]

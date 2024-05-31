@@ -1,0 +1,60 @@
+{% extends 'home.html' %}
+{%block content %}
+<div class="title-heading-w3 mx-auto text-center mb-sm-5 mb-4 pb-xl-4" style="max-width:600px">
+    <h3 class="title-style mb-2">View Profile</h3>
+</div>
+<div class="col-6 mx-auto shadow-lg p-5 rounded text-center">
+    <h4>{{profile.user.username}}</h4>
+
+    <h5>{{profile.user.first_name}} {{profile.user.last_name}}</h5>
+    <div>
+        <img src="{{profile.avatar.url}}" width="150" height="150" style="border-radius: 50%;">
+        Bio: {{profile.bio}}<br>
+        Email: {% if following == "yes"%}{{profile.user.email}}{%else %} Wait for Approval{% endif %}<br>
+        Phone: {% if following == "yes"%}{{profile.phone}}{% else %}Wait for Approval{%endif %}<br>
+        Religion: {{profile.caste.religion}}<br>
+        Caste: {{profile.caste}}<br>
+        Height: {{profile.height}} cm<br>
+        Weight: {{profile.weight}} kg<br>
+        Interests: {{profile.interest}}<br>
+        {% if request.user == profile.user %}
+        <a href="{% url 'update-profile' %}" class="btn btn-style">Update Profile</a>
+        {% else %}
+        <a href="{% url 'follow-unfollow' profile.user.username %}" class="btn btn-style">
+            {%if following == "no" %}
+            Request
+            {% elif following == "pending" %}
+            Request is pending
+            {% else %}
+            Connected
+            {% endif %}
+        </a>
+        {% endif %}
+    </div>
+
+</div>
+<div class="title-heading-w3 mx-auto mt-4 text-center mb-sm-5 mb-4 pb-xl-4" style="max-width:600px">
+    <h3 class="title-style mb-2">Photos</h3>
+    {% if request.user == profile.user %}
+    <form method="post" action="" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{form}}
+        <input type="submit" value="Add" class="btn btn-style">
+    </form>
+    {% endif %}
+
+</div>
+{% if photos|length != 0 %}
+<div class="row">
+    {% for photo in photos %}
+    <div class="col-lg-3">
+        <img src="{{photo.photo.url}}">
+    </div>
+    {% endfor %}
+
+</div>
+{% else %}
+No Photos Uploaded yet
+{% endif %}
+
+{% endblock %}

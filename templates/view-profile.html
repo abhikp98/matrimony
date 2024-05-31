@@ -2,4 +2,15 @@
 {{profile.user.username}}
 {% if request.user == profile.user %}
 <a href="{% url 'update-profile' %}">Update Profile</a>
+{% else %}
+{{profile.user.username}}
+<a href="{% url 'follow-unfollow' profile.user.username %}">
+    {%if following == "no" %}
+    Request
+    {% elif following == "pending" %}
+    pending
+    {% else %}
+    Connected
+    {% endif %}
+</a>
 {% endif %}

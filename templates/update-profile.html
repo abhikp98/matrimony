@@ -1,6 +1,9 @@
-<form method="post" action="">
+{% extends 'home.html' %}
+{% block content %}
+<form method="post" action="" class="col-6 mx-auto shadow-lg rounded">
     {% csrf_token %}
     {{form}}
     <input type="submit" value="Update">
     <a></a>
 </form>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends 'home.html' %}
+{% block content %}
+<div class="col-6 mx-auto row">
+    {% for follower in followers %}
+    <div class="container shadow-lg rounded p-3">
+        {{follower.profile.user.first_name}} {{follower.profile.user.last_name}}<br>
+        <small>{{follower.profile.user.username }}</small>
+        <div class="text-right">
+            <a href="{% url 'accept_request' follower.profile.user.username %}" class="btn btn-style">Accept Request</a>
+        </div>
+    </div>
+</div>
+{% endfor %}
+{% endblock %}

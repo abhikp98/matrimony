@@ -1,0 +1,29 @@
+{% extends 'home.html' %}
+{% block content %}
+<div class="col-6 mx-auto row">
+    {% for follower in followers %}
+    <div class="container shadow-lg rounded p-3">
+        {% if follower.profile.user == request.user %}
+        <a href="{% url 'view-profile' follower.sender.username %}">
+            {{follower.sender.first_name}} {{follower.sender.last_name}}<br>
+            <small>{{follower.sender.username }}</small>
+        </a>
+
+        <div class="text-right">
+            <a href="#" class="btn btn-style">Chat</a>
+        </div>
+        {% else %}
+        <a href="{% url 'view-profile' follower.profile.user.username %}">
+            {{follower.profile.user.first_name}} {{follower.profile.user.last_name}}<br>
+            <small>{{follower.profile.user.username }}</small>
+        </a>
+        <div class="text-right">
+            <a href="#" class="btn btn-style">Chat</a>
+        </div>
+        {% endif %}
+
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock %}

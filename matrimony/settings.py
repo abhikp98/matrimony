@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-uak%q-$c5xba(qn6-8#bn=8t*q9m^6kl6wbntb&-)5xgu2jd6b
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -120,9 +120,9 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 
-STATIC_DIRS= [BASE_DIR / 'static'] 
+STATICFILES_DIRS= [BASE_DIR / 'static'] 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 

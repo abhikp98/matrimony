@@ -46,36 +46,18 @@ Author URL: http://w3layouts.com
                 <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
                     <ul class="navbar-nav ml-lg-auto">
                         <li class="nav-item active">
-                            <a class="nav-link" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
+                            <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'requests' %}">Requests</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'connections' %}">Connections</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'logout' %}">Logout</a>
-                        </li>
+
                         <!-- search button -->
-                        <div class="search-right ml-xl-3 ml-1 mr-xl-1">
-                            <form action="/home" method="GET" class="search-box position-relative">
+                        <!-- <div class="search-right ml-xl-3 ml-1 mr-xl-1"> -->
+                        <!-- <form action="#error" method="GET" class="search-box position-relative">
                                 <input type="search" placeholder="Enter Keyword" name="search" required="required"
                                     autofocus="" class="search-popup">
                                 <button type="submit" class="btn search-btn"><i class="fa fa-search"
                                         aria-hidden="true"></i></button>
-                            </form>
-                        </div>
-                        <div class="cont-ser-position my-auto ml-5">
-                            <nav class="navigation">
-                                <div class="theme-switch-wrapper">
-                                    <label class="theme-switch" for="checkbox">
-                                        <a href="/profile/{{request.user.username}}"><i class="gg-sun"></i></a>
-                                    </label>
-                                </div>
-                            </nav>
-                        </div>
-
+                            </form> -->
+                        <!-- </div> -->
                         <!-- //search button -->
                     </ul>
                 </div>
@@ -98,37 +80,64 @@ Author URL: http://w3layouts.com
             </nav>
         </div>
     </header>
+    <!--//header-->
 
+    <!-- banner section -->
+    <section id="home" class="w3l-banner py-5">
+        <div class="banner-image">
 
-    <!-- 3grids section -->
-    <section class="about-section py-5">
-        <div class="container py-lg-5 py-4">
-            {% block content %}
-            <div class="title-heading-w3 mx-auto text-center mb-sm-5 mb-4 pb-xl-4" style="max-width:600px">
-                <h3 class="title-style mb-2">Find your Perfect Match</h3>
-                <p>Ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores
-                    repellat.</p>
-            </div>
-            <div class="row justify-content-center text-center">
-                {% for user in users %}
-                <div class="col-lg-4 col-md-6">
-                    <div class="about-single p-3">
-                        <div class="about-icon mb-4">
-                            <img src="{{user.avatar.url}}" width="100" height="100">
-                        </div>
-                        <div class="about-content">
-                            <h5 class="mb-2"><a
-                                    href="{% url 'view-profile' user.user.username %}">{{user.user.first_name}}
-                                    {{user.user.last_name}}</a></h5>
-                            <p>@{{user.user.username}}</p>
+        </div>
+        <div class="banner-content">
+            <div class="container pt-5 pb-md-4">
+                <div class="row align-items-center py-4">
+                    <div class="col-md-6 pr-lg-5">
+                        <h3 class="mb-lg-4 mb-3 title">We Promote Your <span>Business</span></h3>
+                        <p class="mr-5">Nemo enim ipsam oluptatem quia reoluptas sit aspernatur aut odit aut fugit, sed
+                            quia
+                            consequuntur
+                            magni dolores eosqui ratione.</p>
+                        <div class="mt-md-5 mt-4 mb-lg-0 mb-4">
+                            <a class="btn btn-style" href="{% url 'register' %}">Register</a>
                         </div>
                     </div>
+                    <div class="col-md-6 mt-md-0 p-5 mb-lg-0 mb-5">
+                        <form method="post" action="">
+                            {% block content %}
+                            {% csrf_token %}
+                            {{form.username}}
+                            {{form.password}}
+                            <input type="submit" value="Login" class="btn btn-style">
+                            {% endblock %}
+                        </form>
+                        {% if messages %}
+                        {% for message in messages %}
+                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                            <strong>{{message}}
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                        </div>
+                        {% endfor %}
+                        {% endif %}
+                    </div>
                 </div>
-                {% endfor %}
             </div>
-            {% endblock %}
         </div>
     </section>
+    <!-- //banner section -->
+
+    <!-- 3grids section -->
+
+    <!-- //3grids section -->
+
+    <!-- home block 3 -->
+
+    <!-- //home block 3 -->
+
+    <!-- home page service block -->
+    <!-- //home page service block -->
+
+    <!-- video section -->
     <!-- //video section -->
 
     <!-- footer -->

@@ -1,11 +1,12 @@
-<form method="post" action="">
-    {% csrf_token %}
-    {{form.username}}
-    {{form.firstname}}
-    {{form.lastname}}
-    {{form.email}}
-    {{form.password1}}
-    {{form.password2}}
-    <input type="submit" value="Register">
-
+{% extends 'index.html' %}
+{% block content %}
+{% csrf_token %}
+{{form.username}}
+{{form.first_name}}
+{{form.last_name}}
+{{form.email}}
+{{form.password1}}
+{{form.password2}}
+<input type="submit" value="Register" class="btn btn-style">
 </form>
+{% endblock %}

@@ -48,4 +48,4 @@ class Followers(models.Model):
 
 class Photos(models.Model):
     profile = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
-    photo = models.ImageField(upload_to='media')
+    photo = models.ImageField(upload_to='media', blank=False, null=False)
