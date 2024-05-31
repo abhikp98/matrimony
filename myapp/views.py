@@ -107,24 +107,26 @@ def follow_unfollow(request, username):
 
 @login_required(login_url="/")
 def update_profile(request):
-    form = UserProfileForm()
-    if UserProfile.objects.filter(user=request.user).exists():
-            userprofile = UserProfile.objects.get(user=request.user)
-            form = UserProfileForm(instance=userprofile)
     if request.method == 'POST':
         if UserProfile.objects.filter(user=request.user).exists():
             userprofile = UserProfile.objects.get(user=request.user)
-            form = UserProfileForm(instance=userprofile)
+            form = UserProfileForm(request.POST, request.FILES, instance=userprofile)
             if form.is_valid():
                 form.save()
                 return redirect('update-profile')
 
-        form = UserProfileForm(request.POST)
+        form = UserProfileForm(request.POST, request.FILES)
         if form.is_valid():
             frm = form.save(commit=False)
             frm.user = request.user
             frm.save()
             return redirect('update-profile')
+    
+    if UserProfile.objects.filter(user=request.user).exists():
+            userprofile = UserProfile.objects.get(user=request.user)
+            form = UserProfileForm(instance=userprofile)
+    else:
+        form = UserProfileForm()
 
     context = {"form": form}
     return render(request, 'update-profile.html', context)
